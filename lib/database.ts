@@ -32,7 +32,7 @@ export async function getLatestData(): Promise<CondorData[]> {
   return mockData.slice(-50) // Últimos 50 registros
 }
 
-export async function saveCondorData(data: Omit<CondorData, 'id'>): Promise<string> {
+export async function saveCondorData(data: Omit<CondorData, 'id' | 'timestamp'>): Promise<string> {
   const id = `data-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
   const newData: CondorData = {
     id,
@@ -43,7 +43,7 @@ export async function saveCondorData(data: Omit<CondorData, 'id'>): Promise<stri
   return id
 }
 
-export async function saveGeneratedPoem(poem: Omit<GeneratedPoem, 'id'>): Promise<string> {
+export async function saveGeneratedPoem(poem: Omit<GeneratedPoem, 'id' | 'created_at'>): Promise<string> {
   const id = `poem-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
   const newPoem: GeneratedPoem = {
     id,
