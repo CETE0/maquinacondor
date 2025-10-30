@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+body {
+  background-color: #000000;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.text-box {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  padding: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.text-box pre {
+  margin: 0;
+  white-space: pre;
+  text-align: center;
+}
+
+.rack-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  align-items: center;
+}
+
+.shelf {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.rack-cube {
+  min-width: 220px;
+  height: 220px;
+  flex: 0 1 auto;
+  perspective: 1000px;
+}
+
+.spinning-cube {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.cube-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: spinY 10s infinite linear;
+}
+
+@keyframes spinY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.cube-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backface-visibility: visible;
+}
+
+.cube-face-front {
+  transform: rotateY(0deg) translateZ(110px);
+}
+
+.cube-face-back {
+  transform: rotateY(180deg) translateZ(110px);
+}
+
+.cube-face-right {
+  transform: rotateY(90deg) translateZ(110px);
+}
+
+.cube-face-left {
+  transform: rotateY(-90deg) translateZ(110px);
+}
+
+.cube-face-top {
+  transform: rotateX(90deg) translateZ(110px);
+}
+
+.cube-face-bottom {
+  transform: rotateX(-90deg) translateZ(110px);
+}
+
+.cube-face pre {
+  margin: 0;
+  white-space: pre;
+  text-align: center;
+}
+
+.text-box pre a,
+.rack-cube pre a {
+  color: #D92534;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-box pre a:hover,
+.rack-cube pre a:hover {
+  color: #D92534;
+  text-decoration: underline;
+}
+
+.text-box pre a:visited,
+.rack-cube pre a:visited {
+  color: #D92534;
+}
+
+
+

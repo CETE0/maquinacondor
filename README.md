@@ -1,35 +1,31 @@
-# Maquina Condor
+# Máquina Condoro
 
-Web minimalista estilo net art con diseño retro de terminal de los 90s.
+Instalación web de net art que combina web scraping, procesamiento de datos y generación automática de poemas inspirados en Nicanor Parra.
 
-## Características
+## 📚 Documentación
 
-- Fondo negro
-- Caja de texto blanca centrada
-- Tipografía retro de terminal monospace
-- Diseño minimalista
+- **[Guía Completa de Configuración del Backend](./BACKEND_SETUP.md)** - Todo lo que necesitas saber para configurar el backend
 
-## Desarrollo
+## 🚀 Inicio Rápido
 
 ```bash
+# Instalar dependencias
 npm install
+
+# Crear archivo .env.local
+echo "CRON_SECRET=$(openssl rand -hex 32)" > .env.local
+
+# Desarrollo
 npm run dev
 ```
 
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## Despliegue en Vercel
+## 📖 Para más detalles
 
-Este proyecto está configurado para desplegarse automáticamente en Vercel:
-
-1. Conecta tu repositorio de GitHub a Vercel
-2. Vercel detectará automáticamente que es un proyecto Next.js
-3. El despliegue se realizará automáticamente
-
-O usando la CLI de Vercel:
-
-```bash
-npm i -g vercel
-vercel
-```
-
+Consulta [BACKEND_SETUP.md](./BACKEND_SETUP.md) para:
+- Configuración completa del backend
+- Variables de entorno
+- Migración a Supabase
+- Configuración de cron jobs
+- Testing de APIs
