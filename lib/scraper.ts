@@ -33,10 +33,12 @@ export const SOURCES = {
  */
 function searchCondorContent(html: string, source: string): { found: boolean, content: any } {
   const $ = cheerio.load(html)
-  const text = $.text().toLowerCase()
+  // Obtener el texto de todo el documento usando el método correcto
+  const text = $('body').text() || $.html() || ''
+  const textLower = text.toLowerCase()
   
   const condorKeywords = ['condor', 'cóndor', 'vultur gryphus', 'ave rapaz']
-  const found = condorKeywords.some(keyword => text.includes(keyword))
+  const found = condorKeywords.some(keyword => textLower.includes(keyword))
   
   if (!found) {
     return { found: false, content: null }
@@ -46,8 +48,9 @@ function searchCondorContent(html: string, source: string): { found: boolean, co
   const articles: any[] = []
   
   $('article, .noticia, .news-item, .post').each((i, elem) => {
-    const title = $(elem).find('h1, h2, h3, .title').text().trim()
-    const content = $(elem).text().trim()
+    const $elem = $(elem)
+    const title = $elem.find('h1, h2, h3, .title').text().trim()
+    const content = $elem.text().trim()
     
     if (title || content) {
       articles.push({
@@ -61,10 +64,11 @@ function searchCondorContent(html: string, source: string): { found: boolean, co
   // Si no hay artículos estructurados, buscar párrafos con keywords
   if (articles.length === 0) {
     $('p').each((i, elem) => {
-      const text = $(elem).text().toLowerCase()
-      if (condorKeywords.some(k => text.includes(k))) {
+      const $elem = $(elem)
+      const paragraphText = $elem.text().toLowerCase()
+      if (condorKeywords.some(k => paragraphText.includes(k))) {
         articles.push({
-          content: $(elem).text().trim(),
+          content: $elem.text().trim(),
           source
         })
       }
