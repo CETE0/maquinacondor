@@ -97,12 +97,18 @@ export async function scrapeSource(source: string): Promise<ScrapeResult> {
 
   try {
     const url = sourceConfig.url
+    // Crear AbortController para timeout (compatible con Node.js 18)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 segundos timeout
+    
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; CondorBot/1.0; +https://maquinacondor.vercel.app)'
       },
-      signal: AbortSignal.timeout(10000) // 10 segundos timeout
+      signal: controller.signal
     })
+    
+    clearTimeout(timeoutId)
 
     if (!response.ok) {
       return {

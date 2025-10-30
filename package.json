@@ -13,14 +13,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@supabase/supabase-js": "^2.38.5",
-    "cheerio": "^1.0.0-rc.12",
-    "node-fetch": "^2.7.0"
+    "cheerio": "^1.0.0-rc.12"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/node-fetch": "^2.6.11",
+    "@types/cheerio": "^0.22.35",
     "typescript": "^5"
   }
 }

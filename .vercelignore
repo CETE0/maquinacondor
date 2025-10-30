@@ -1,0 +1,6 @@
+# Archivos que no deben incluirse en el despliegue
+.env.local
+.env*.local
+*.log
+.DS_Store
+
