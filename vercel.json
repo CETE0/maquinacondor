@@ -1,4 +1,12 @@
 {
+  "buildCommand": "npm run build",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/scrape-daily",
@@ -6,4 +14,3 @@
     }
   ]
 }
-
