@@ -1,7 +1,18 @@
-import { CondorData, getLatestPoems } from './database'
+// Versión cliente del generador de poemas - se ejecuta en el navegador
+// No depende de la base de datos
+
+export interface CondorData {
+  id: string
+  timestamp: string
+  source: string
+  data_type: 'census' | 'news' | 'price' | 'weather' | 'error'
+  content: object | null
+  error_type?: '404' | '500' | 'timeout' | 'no_data'
+  status: 'success' | 'partial' | 'failed'
+  metadata: object
+}
 
 // Fragmentos de palabras y frases inspiradas en Nicanor Parra (estilo antipoético)
-// Estructura caótica y absurda para generar textos impredecibles
 const PARRA_FRAGMENTS = {
   nouns: ['cóndor', 'número', 'silencio', 'sistema', 'servidor', 'dato', 'archivo', 'informe', 'verdad', 'mentira', 'cifra', 'institución', 'ganado', 'cordillera', 'veneno', 'ley', 'papel', 'presupuesto', 'estadística', 'ausencia', 'vacío', 'error', 'tiempo', 'conexión', 'grito', 'eco', 'extinción', 'conservación'],
   verbs: ['cuenta', 'dice', 'desaparece', 'existe', 'duerme', 'falla', 'carga', 'responde', 'derrumba', 'valen', 'protege', 'mata', 'cumple', 'aumenta', 'coincide', 'discrepa', 'callan', 'muere', 'se agota', 'cae', 'desvanece', 'contradice', 'miente'],
@@ -44,13 +55,6 @@ const PARRA_FRAGMENTS = {
     ['Cuentan como se cuenta el dinero', 'Cada uno vale un precio', 'Pero nadie paga por ellos', 'Y los números aumentan'],
     ['Protegen mientras lo matan', 'Leyes que no se cumplen', 'Papeles que no valen', 'Conservación oficial'],
     ['Presupuesto asignado', 'Pero sigue cayendo', 'Y los números aumentan', 'En archivos oficiales']
-  ],
-  chaos_patterns: [
-    // Patrones absurdos para mezclar
-    () => Math.random() > 0.5 ? 'NO ' : '',
-    () => ['?', '!', '.', '...', ''][Math.floor(Math.random() * 5)],
-    () => ['Y', 'O', 'PERO', 'AUNQUE', ''][Math.floor(Math.random() * 5)],
-    () => ['TAL VEZ', 'QUIZÁS', 'ACASO', ''][Math.floor(Math.random() * 4)],
   ]
 }
 
@@ -58,6 +62,10 @@ interface TriggerAnalysis {
   trigger: 'data_found' | 'data_missing' | 'contradiction' | 'error' | 'death' | 'irony'
   confidence: number
   reason: string
+}
+
+function randomElement<T>(array: T[]): T {
+  return array[Math.floor(Math.random() * array.length)]
 }
 
 /**
@@ -137,13 +145,6 @@ export function analyzeDataTriggers(data: CondorData[]): TriggerAnalysis[] {
   }
 
   return triggers.sort((a, b) => b.confidence - a.confidence)
-}
-
-/**
- * Genera una palabra aleatoria de una categoría
- */
-function randomElement<T>(array: T[]): T {
-  return array[Math.floor(Math.random() * array.length)]
 }
 
 /**
@@ -230,7 +231,6 @@ function generateChaosVerse(triggers: TriggerAnalysis[], data: CondorData[], ver
 
 /**
  * Genera un poema completamente absurdo basado en triggers y datos
- * Usa aleatoriedad extrema y patrones de Nicanor Parra
  */
 function generateAbsurdPoem(triggers: TriggerAnalysis[], data: CondorData[]): string[] {
   // Si no hay triggers, generar pura aleatoriedad
@@ -301,26 +301,15 @@ function generateAbsurdPoem(triggers: TriggerAnalysis[], data: CondorData[]): st
 
 /**
  * Genera datos para los cubos (16 cubos = 16 poemas)
+ * Versión cliente que se ejecuta en el navegador
  */
-export async function generatePoemsForCubes(data: CondorData[]): Promise<Array<{id: string, content: string, verses?: string[]}>> {
+export function generatePoemsForCubes(data: CondorData[]): Array<{id: string, content: string, verses?: string[]}> {
   const triggers = analyzeDataTriggers(data)
   
-  // Si ya hay poemas generados recientemente, usarlos
-  const existingPoems = await getLatestPoems(16)
-  
-  if (existingPoems.length >= 16) {
-    return existingPoems.slice(0, 16).map(poem => ({
-      id: poem.id,
-      content: poem.verses.join('\n'),
-      verses: poem.verses
-    }))
-  }
-
   // Generar nuevos poemas con algoritmo absurdo
   const cubesData = []
   for (let i = 0; i < 16; i++) {
     // Cada cubo tiene una combinación única de aleatoriedad
-    // Usar el índice para crear variación pero mantener aleatoriedad
     const cubeTriggers = triggers.length > 0 
       ? triggers.filter((_, idx) => Math.random() > 0.3 || idx === i % triggers.length)
       : []
@@ -337,3 +326,4 @@ export async function generatePoemsForCubes(data: CondorData[]): Promise<Array<{
 
   return cubesData
 }
+

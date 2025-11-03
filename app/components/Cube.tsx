@@ -11,15 +11,27 @@ interface CubeProps {
   cubeIndex: number
   mousePosition: { x: number; y: number }
   renderTextContent: (content?: string) => React.ReactNode
+  gyroEnabled?: boolean
+  deviceOrientation?: { beta: number; gamma: number } | null
 }
 
-export default function Cube({ cubeData, cubeIndex, mousePosition, renderTextContent }: CubeProps) {
+export default function Cube({ cubeData, cubeIndex, mousePosition, renderTextContent, gyroEnabled = false, deviceOrientation }: CubeProps) {
   const cubeRef = useRef<HTMLDivElement>(null)
   const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 })
 
   const calculateRotation = () => {
     if (!cubeRef.current) return { rotateX: 0, rotateY: 0 }
 
+    // Si el giroscopio está habilitado, usar datos del dispositivo
+    if (gyroEnabled && deviceOrientation) {
+      // beta es la inclinación frontal (rotateX), gamma es la inclinación lateral (rotateY)
+      // Convertir de grados del dispositivo a rotación del cubo
+      const rotateX = (deviceOrientation.beta || 0) * 0.5 // Ajustar sensibilidad
+      const rotateY = (deviceOrientation.gamma || 0) * 0.5
+      return { rotateX, rotateY }
+    }
+
+    // Usar posición del mouse en desktop
     const cubeRect = cubeRef.current.getBoundingClientRect()
     const cubeCenterX = cubeRect.left + cubeRect.width / 2
     const cubeCenterY = cubeRect.top + cubeRect.height / 2
@@ -40,7 +52,7 @@ export default function Cube({ cubeData, cubeIndex, mousePosition, renderTextCon
       setRotation(newRotation)
     }
     updateRotation()
-  }, [mousePosition])
+  }, [mousePosition, gyroEnabled, deviceOrientation])
 
   return (
     <div

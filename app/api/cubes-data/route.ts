@@ -1,26 +1,23 @@
 import { NextResponse } from 'next/server'
-import { generatePoemsForCubes } from '@/lib/poem-generator'
-import { getLatestData } from '@/lib/database'
+import { readFile } from 'fs/promises'
+import { join } from 'path'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Obtener los últimos datos y poemas generados
-    const latestData = await getLatestData()
-    const cubesData = await generatePoemsForCubes(latestData)
+    // Leer el JSON estático desde el sistema de archivos
+    const filePath = join(process.cwd(), 'data', 'condor-data.json')
+    const fileContents = await readFile(filePath, 'utf8')
+    const condorData = JSON.parse(fileContents)
     
-    return NextResponse.json(cubesData)
+    // Devolver el JSON estático
+    // La lógica de generación de poemas se ejecuta en el cliente
+    return NextResponse.json(condorData)
   } catch (error) {
     console.error('Error fetching cubes data:', error)
-    // Retornar datos placeholder si hay error
-    return NextResponse.json(
-      Array.from({ length: 16 }).map((_, index) => ({
-        id: `cube-${index}`,
-        content: `Cubo ${index + 1}\nCargando...`
-      })),
-      { status: 200 }
-    )
+    // Retornar array vacío si hay error
+    return NextResponse.json([], { status: 200 })
   }
 }
 

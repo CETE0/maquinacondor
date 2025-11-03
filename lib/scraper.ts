@@ -34,10 +34,11 @@ export const SOURCES = {
 function searchCondorContent(html: string, source: string): { found: boolean, content: any } {
   const $ = cheerio.load(html)
   // Obtener el texto de todo el documento usando el método correcto
-  // Buscar primero en body, luego en root como fallback
+  // Buscar primero en body, luego en html, luego usar el HTML completo como fallback
   const bodyText = $('body').text()
-  const rootText = bodyText || $('html').text() || html
-  const textLower = rootText.toLowerCase()
+  const htmlText = $('html').text()
+  const allText = bodyText || htmlText || ''
+  const textLower = allText.toLowerCase()
   
   const condorKeywords = ['condor', 'cóndor', 'vultur gryphus', 'ave rapaz']
   const found = condorKeywords.some(keyword => textLower.includes(keyword))

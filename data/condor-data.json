@@ -1,0 +1,125 @@
+[
+  {
+    "id": "data-001",
+    "timestamp": "2025-01-15T10:00:00.000Z",
+    "source": "SAG",
+    "data_type": "census",
+    "content": {
+      "message": "Censo oficial de cóndores andinos",
+      "count": 150,
+      "region": "Región Metropolitana"
+    },
+    "status": "success",
+    "metadata": {
+      "url": "https://www.sag.gob.cl",
+      "response_time": 1200,
+      "timestamp": "2025-01-15T10:00:00.000Z"
+    }
+  },
+  {
+    "id": "data-002",
+    "timestamp": "2025-01-15T10:05:00.000Z",
+    "source": "CONAF",
+    "data_type": "census",
+    "content": {
+      "message": "Monitoreo de cóndores en áreas protegidas",
+      "count": 85,
+      "location": "Parque Nacional Lauca"
+    },
+    "status": "success",
+    "metadata": {
+      "url": "https://www.conaf.cl",
+      "response_time": 980,
+      "timestamp": "2025-01-15T10:05:00.000Z"
+    }
+  },
+  {
+    "id": "data-003",
+    "timestamp": "2025-01-15T10:10:00.000Z",
+    "source": "La Tercera",
+    "data_type": "news",
+    "content": {
+      "articles": [
+        {
+          "title": "Cóndor envenenado encontrado en cordillera",
+          "date": "2025-01-14"
+        }
+      ]
+    },
+    "status": "success",
+    "metadata": {
+      "url": "https://www.latercera.com",
+      "response_time": 1500,
+      "timestamp": "2025-01-15T10:10:00.000Z"
+    }
+  },
+  {
+    "id": "data-004",
+    "timestamp": "2025-01-15T10:15:00.000Z",
+    "source": "Emol",
+    "data_type": "news",
+    "content": {
+      "articles": [
+        {
+          "title": "Protección de cóndores: nueva ley en trámite",
+          "date": "2025-01-13"
+        }
+      ]
+    },
+    "status": "success",
+    "metadata": {
+      "url": "https://www.emol.com",
+      "response_time": 1100,
+      "timestamp": "2025-01-15T10:15:00.000Z"
+    }
+  },
+  {
+    "id": "data-005",
+    "timestamp": "2025-01-15T10:20:00.000Z",
+    "source": "El Mercurio",
+    "data_type": "news",
+    "content": null,
+    "status": "partial",
+    "error_type": "no_data",
+    "metadata": {
+      "url": "https://www.emol.com",
+      "response_time": 2000,
+      "timestamp": "2025-01-15T10:20:00.000Z"
+    }
+  },
+  {
+    "id": "data-006",
+    "timestamp": "2025-01-15T10:25:00.000Z",
+    "source": "Cooperativa",
+    "data_type": "error",
+    "content": null,
+    "status": "failed",
+    "error_type": "404",
+    "metadata": {
+      "url": "https://www.cooperativa.cl",
+      "response_time": 500,
+      "timestamp": "2025-01-15T10:25:00.000Z"
+    }
+  },
+  {
+    "id": "data-007",
+    "timestamp": "2025-01-15T10:30:00.000Z",
+    "source": "BioBio",
+    "data_type": "news",
+    "content": {
+      "articles": [
+        {
+          "title": "Muerte de cóndor reportada en zona agrícola",
+          "date": "2025-01-12"
+        }
+      ]
+    },
+    "status": "success",
+    "metadata": {
+      "url": "https://www.biobiochile.cl",
+      "response_time": 1300,
+      "timestamp": "2025-01-15T10:30:00.000Z"
+    }
+  }
+]
+
