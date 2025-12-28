@@ -407,8 +407,11 @@ export default function Home() {
           </div>
           
           {/* Cuadro principal centrado */}
-          <div className="text-box">
-            <pre>{renderTextContent()}</pre>
+          <div className="text-box-container-rotating">
+            <div className="text-box-border"></div>
+            <div className="text-box-content">
+              <pre>{renderTextContent()}</pre>
+            </div>
           </div>
         </div>
       ) : (

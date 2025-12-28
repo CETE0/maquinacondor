@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 html,
@@ -13,7 +16,7 @@ body {
 
 body {
   background-color: #000000;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,17 +24,7 @@ body {
   min-height: 100vh;
 }
 
-.text-box {
-  background-color: #000000;
-  border: 2px solid #ffffff;
-  padding: 2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.text-box pre {
+.text-box-content pre {
   margin: 0;
   white-space: pre;
   text-align: center;
@@ -87,6 +80,24 @@ body {
   }
 }
 
+@keyframes rotateTextBox {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counterRotateTextBox {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
 .cube-face {
   position: absolute;
   width: 100%;
@@ -134,20 +145,20 @@ body {
   text-align: center;
 }
 
-.text-box pre a,
+.text-box-content pre a,
 .rack-cube pre a {
   color: #D92534;
   text-decoration: none;
   cursor: pointer;
 }
 
-.text-box pre a:hover,
+.text-box-content pre a:hover,
 .rack-cube pre a:hover {
   color: #D92534;
   text-decoration: underline;
 }
 
-.text-box pre a:visited,
+.text-box-content pre a:visited,
 .rack-cube pre a:visited {
   color: #D92534;
 }
@@ -178,7 +189,7 @@ body {
   left: 50%;
   top: 50%;
   white-space: nowrap;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 0.7rem;
   color: #ffffff;
   text-transform: uppercase;
@@ -210,24 +221,39 @@ body {
   }
 }
 
-.text-box {
+.text-box-container-rotating {
   position: relative;
   z-index: 10;
+  animation: rotateTextBox 20s infinite linear;
+}
+
+.text-box-border {
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  width: calc(100% + 2rem);
+  height: calc(100% + 2rem);
   background-color: #000000;
   border: 2px solid #ffffff;
+}
+
+.text-box-content {
+  position: relative;
+  z-index: 1;
   padding: 2rem;
   font-size: 1rem;
   line-height: 1.6;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  animation: counterRotateTextBox 20s infinite linear;
 }
 
 @media (max-width: 768px) {
   .background-text-line {
     font-size: 0.5rem;
   }
-  
-  .text-box {
+
+  .text-box-content {
     font-size: 0.8rem;
     padding: 1.5rem;
   }
